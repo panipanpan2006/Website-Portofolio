@@ -85,9 +85,9 @@ nav {
 }
 
 nav.scrolled {
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(15, 23, 42, 0.98) !important;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Remove any pseudo-elements from nav */
@@ -200,6 +200,7 @@ nav::after {
 #home {
     position: relative;
     overflow: visible;
+    padding-top: 80px;
 }
 
 #home::before,
@@ -888,11 +889,12 @@ footer {
 
 .modal-info-item svg {
     color: var(--accent-cyan);
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
     flex-shrink: 0;
+    margin-right: 0.75rem;
 }
 
 .modal-description {
@@ -1184,10 +1186,12 @@ footer {
     
     /* FIXED: Modal Info Icons Size */
     .modal-info-item svg {
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        min-height: 20px;
+        color: var(--accent-cyan);
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+        min-height: 24px !important;
+        flex-shrink: 0;
     }
     
     /* Tech Badges - Smaller on mobile */
