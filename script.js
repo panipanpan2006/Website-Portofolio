@@ -53,9 +53,9 @@ const experienceData = {
         location: "Electrical Engineering Department, Faculty of Engineering, Diponegoro University",
         description: "Worked behind the scenes to develop evaluation parameters for each participant and compile scores for PMB 2024. Responsible for assessing new student activities during the orientation period. Evaluated participation and performance in various campus introduction activities. Coordinated with other divisions to ensure smooth event execution.",
         images: [
-            "assets/kepanitiaan1-1.jpg",
-            "assets/kepanitiaan1-2.jpg",
-            "assets/kepanitiaan1-3.jpg"
+            "assets/kepanitiaan1-1.png",
+            "assets/kepanitiaan1-2.png",
+            "assets/kepanitiaan1-3.png"
         ]
     },
     kepanitiaan2: {
@@ -65,9 +65,9 @@ const experienceData = {
         location: "Electrical Engineering Department, Faculty of Engineering, Diponegoro University",
         description: "Facilitated discussions and activities in the Student Leadership and Management Training program. Guided participants in understanding leadership and organizational concepts. Helped participants develop essential soft skills for organizational involvement. Shaped students into responsible, independent leaders with clear vision and effective teamwork skills.",
         images: [
-            "assets/kepanitiaan2-1.jpg",
-            "assets/kepanitiaan2-2.jpg",
-            "assets/kepanitiaan2-3.jpg"
+            "assets/kepanitiaan2-1.png",
+            "assets/kepanitiaan2-2.png",
+            "assets/kepanitiaan2-3.png"
         ]
     },
     magang: {
@@ -77,15 +77,15 @@ const experienceData = {
         location: "Ciheras, Cipatujah District, Tasikmalaya Regency, West Java 46189",
         description: "Interned at PT. Lentera Bumi Nusantara as part of the Data Logger team for 1 month. Responsible for collecting and analyzing wind speed data using anemometers at 5m and 10m heights. Activities included: Learning fundamentals of data logging and renewable energy power plants, Creating data analysis reports using CR850 data logger at different heights, Weekly presentation of analysis results, and Collaborating with the data logger team.",
         images: [
-            "assets/magang-1.jpg",
-            "assets/magang-2.jpg",
-            "assets/magang-3.jpg",
-            "assets/magang-4.jpg",
-            "assets/magang-5.jpg",
-            "assets/magang-6.jpg",
-            "assets/magang-7.jpg",
-            "assets/magang-8.jpg",
-            "assets/magang-9.jpg"
+            "assets/magang-1.png",
+            "assets/magang-2.png",
+            "assets/magang-3.png",
+            "assets/magang-4.png",
+            "assets/magang-5.png",
+            "assets/magang-6.png",
+            "assets/magang-7.png",
+            "assets/magang-8.png",
+            "assets/magang-9.png"
         ]
     },
     prestasi1: {
@@ -95,9 +95,9 @@ const experienceData = {
         location: "Student Center UNDIP, Jl. Prof. Eko Budihardjo, Tembalang, Semarang, Central Java 50275",
         description: "Won 1st place in the men's doubles table tennis competition at the Faculty of Engineering Sports Week 2025. Defeated multiple teams from various faculties over a 2-day tournament. Successfully advanced through quarterfinals, semifinals, and finals against strong opponents from different faculties.",
         images: [
-            "assets/prestasi1-1.jpg",
-            "assets/prestasi1-2.jpg",
-            "assets/prestasi1-3.jpg"
+            "assets/prestasi1-1.png",
+            "assets/prestasi1-2.png",
+            "assets/prestasi1-3.png"
         ]
     },
     prestasi2: {
@@ -107,9 +107,9 @@ const experienceData = {
         location: "Atap Langit Coffee n Eatery, Jl. Durian Raya, Pedalangan, Banyumanik, Semarang, Central Java 50268",
         description: "Won 3rd place in the band competition at Engineering Festival UNDIP 2023. Performed two designated songs and got evaluated by the judge. Competed against 10 bands from various faculties at Diponegoro University. Performance evaluated on musicality, stagecraft, creativity, and originality.",
         images: [
-            "assets/prestasi2-1.jpg",
-            "assets/prestasi2-2.jpg",
-            "assets/prestasi2-3.jpg"
+            "assets/prestasi2-1.png",
+            "assets/prestasi2-2.png",
+            "assets/prestasi2-3.png"
         ]
     }
 };
@@ -236,7 +236,10 @@ function openProjectModal(projectId) {
 
                 <div class="modal-description">
                     <h3>Deskripsi Lengkap</h3>
-                    ${Array.isArray(project.description) ? project.description.map(p => `<p class="description-paragraph">${p}</p>`).join('') : `<p class="description-paragraph">${project.description}</p>`}
+                    ${Array.isArray(project.description) 
+                        ? project.description.map(p => `<p class="description-paragraph">${p}</p>`).join('')
+                        : `<p class="description-paragraph">${project.description}</p>`
+                }
                 </div>
             </div>
         </div>
