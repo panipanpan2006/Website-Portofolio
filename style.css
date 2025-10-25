@@ -1,4 +1,3 @@
-/* Fix overflow & viewport height */
 html, body {
     margin: 0;
     padding: 0;
@@ -25,6 +24,23 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+/* CRITICAL FIX: Container boundaries */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.modal-content,
+.modal-images,
+.tech-badges {
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 * {
@@ -149,12 +165,6 @@ nav.scrolled {
     padding: 6rem 1.5rem 4rem;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
 .section-title {
     font-size: 3rem;
     text-align: center;
@@ -163,61 +173,6 @@ nav.scrolled {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-/* TAMBAHKAN: Mobile Responsive Fix */
-@media (max-width: 768px) {
-    .profile-image-wrapper {
-        width: 140px;
-        height: 140px;
-        border-width: 5px;
-        margin-bottom: 1.5rem;
-    }
-
-    .profile-image {
-        object-position: center 20%; /* Sesuaikan posisi wajah */
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-image-wrapper {
-        width: 120px;
-        height: 120px;
-        border-width: 4px;
-    }
-
-    .main-title {
-        font-size: 1.8rem;
-    }
-
-    .subtitle {
-        font-size: 1.1rem;
-    }
-}
-
-/* Fix desktop mode di HP (lebar > 768px tapi masih HP) */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-    .section {
-        min-height: auto;
-        padding: 4rem 2rem;
-    }
-    
-    .home-content {
-        padding: 2rem 1rem;
-    }
-    
-    .profile-image-wrapper {
-        width: 180px;
-        height: 180px;
-    }
-    
-    .main-title {
-        font-size: 2.5rem;
-    }
-    
-    .section-title {
-        font-size: 2.2rem;
-    }
 }
 
 /* Home Section */
@@ -290,6 +245,7 @@ nav.scrolled {
     margin-top: 2rem;
 }
 
+/* FIXED: Profile Image */
 .profile-image-wrapper {
     display: inline-block;
     margin: 0 auto 2rem;
@@ -310,9 +266,10 @@ nav.scrolled {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center 30%;
     border-radius: 50%;
     display: block;
+    transform: scale(1.1);
 }
 
 .main-title {
@@ -529,11 +486,13 @@ nav.scrolled {
     line-height: 1.6;
 }
 
+/* FIXED: Project Tech Badges */
 .project-tech-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin: 1rem 0 0.75rem;
+    max-width: 100%;
 }
 
 .project-tech-badges .tech-badge {
@@ -541,10 +500,12 @@ nav.scrolled {
     color: var(--accent-blue);
     padding: 0.35rem 0.75rem;
     border-radius: 50px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     border: 1px solid rgba(59, 130, 246, 0.3);
     transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .project-tech-badges .tech-badge:hover {
@@ -812,6 +773,7 @@ footer {
     box-shadow: 0 0 50px rgba(6, 182, 212, 0.3);
     position: relative;
     animation: slideUp 0.3s ease;
+    box-sizing: border-box;
 }
 
 @keyframes slideUp {
@@ -856,10 +818,15 @@ footer {
 
 .modal-body {
     padding: 2rem;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .modal-body > * {
     margin-bottom: 2.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .modal-body > *:last-child {
@@ -915,6 +882,7 @@ footer {
     line-height: 1.8;
 }
 
+/* FIXED: Modal Gallery */
 .modal-gallery {
     background: rgba(51, 65, 85, 0.4);
     padding: 2rem;
@@ -922,6 +890,9 @@ footer {
     border-left: 5px solid var(--accent-cyan);
     box-shadow: 0 6px 20px rgba(6, 182, 212, 0.15);
     transition: all 0.3s ease;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .modal-gallery h3 {
@@ -932,19 +903,22 @@ footer {
 
 .modal-images {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
     margin-top: 1rem;
+    max-width: 100%;
+    padding: 0;
 }
 
 .modal-image {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     border-radius: 12px;
     border: 2px solid var(--border-color);
     cursor: pointer;
     transition: all 0.3s ease;
+    max-width: 100%;
 }
 
 .modal-image:hover {
@@ -981,27 +955,31 @@ footer {
     box-shadow: 0 10px 30px rgba(6, 182, 212, 0.25);
 }
 
+/* FIXED: Tech Badges in Modal */
 .tech-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.6rem;
     margin-top: 1rem;
     justify-content: center;
+    max-width: 100%;
+    padding: 0 0.5rem;
 }
 
 .tech-badge {
     background: linear-gradient(135deg, #3b82f6, #06b6d4);
     color: white;
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 0.9rem;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.5px;
     box-shadow: 0 3px 10px rgba(59, 130, 246, 0.4);
     transition: all 0.3s ease;
     white-space: nowrap;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
 }
 
 .tech-badge:hover {
@@ -1038,31 +1016,254 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
+/* ===============================================
+   RESPONSIVE MOBILE OPTIMIZED
+   =============================================== */
+
+/* Mobile (768px and below) */
 @media (max-width: 768px) {
     .menu-toggle { display: flex; }
     .nav-menu { 
-        position: absolute; top: 100%; left: 0; width: 100%; 
-        flex-direction: column; background: rgba(15, 23, 42, 0.95); 
-        backdrop-filter: blur(10px); padding: 1rem; gap: 0; max-height: 0; 
-        overflow: hidden; transition: max-height 0.3s ease; 
+        position: absolute; 
+        top: 100%; 
+        left: 0; 
+        width: 100%; 
+        flex-direction: column; 
+        background: rgba(15, 23, 42, 0.95); 
+        backdrop-filter: blur(10px); 
+        padding: 1rem; 
+        gap: 0; 
+        max-height: 0; 
+        overflow: hidden; 
+        transition: max-height 0.3s ease; 
     }
     .nav-menu.active { max-height: 400px; }
-    .nav-menu li { padding: 1rem; border-bottom: 1px solid var(--border-color); }
-    .profile-image { width: 150px; height: 150px; }
+    .nav-menu li { 
+        padding: 1rem; 
+        border-bottom: 1px solid var(--border-color); 
+    }
+    
+    /* Profile Image Fix */
+    .profile-image-wrapper {
+        width: 140px;
+        height: 140px;
+        border-width: 5px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .profile-image {
+        object-position: center 25%;
+        transform: scale(1.2);
+    }
+    
+    /* Typography */
     .main-title { font-size: 2rem; }
-    .subtitle { font-size: 1.2rem; }
+    .subtitle { font-size: 1.1rem; }
     .section-title { font-size: 2rem; }
-    .skills-grid, .projects-grid, .experience-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: repeat(2, 1fr); }
-    .experience-image { width: 60px; height: 60px; }
+    
+    /* Grids */
+    .skills-grid, 
+    .projects-grid, 
+    .experience-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .contact-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    
+    /* Tech Badges - Smaller on mobile */
+    .tech-badges {
+        gap: 0.5rem;
+        padding: 0;
+    }
+    
+    .tech-badge {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.3px;
+    }
+    
+    /* Modal Images - Responsive */
+    .modal-images {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .modal-image {
+        height: 160px;
+    }
+    
+    /* Modal Content */
+    .modal-content {
+        margin: 1rem;
+        max-width: calc(100% - 2rem);
+    }
+    
+    .modal-header {
+        padding: 1.5rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    /* Container Padding */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .section {
+        padding: 5rem 1rem 3rem;
+    }
+    
+    /* Experience */
+    .experience-thumb { 
+        width: 60px; 
+        height: 60px; 
+    }
 }
 
+/* Small Mobile (480px and below) */
 @media (max-width: 480px) {
     .nav-container { padding: 1rem; }
-    .section { padding: 3rem 1rem; }
-    .main-title { font-size: 1.5rem; }
-    .contact-grid { grid-template-columns: 1fr; }
+    .section { padding: 3rem 0.75rem; }
+    
+    /* Profile */
+    .profile-image-wrapper {
+        width: 120px;
+        height: 120px;
+        border-width: 4px;
+    }
+    
+    .profile-image {
+        object-position: center 20%;
+        transform: scale(1.25);
+    }
+    
+    /* Typography */
+    .main-title { font-size: 1.8rem; }
+    .subtitle { font-size: 1rem; }
+    .section-title { font-size: 1.75rem; }
+    
+    /* Contact Grid */
+    .contact-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .contact-item span {
+        font-size: 0.85rem;
+    }
+    
+    /* Logo */
     .logo-image { width: 30px; height: 30px; }
     .logo { font-size: 1.2rem; }
+    
+    /* Tech Badges - Extra small */
+    .tech-badge {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.65rem;
+    }
+    
+    /* Modal */
+    .modal-overlay {
+        padding: 1rem;
+    }
+    
+    .modal-content {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+    
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-images {
+        gap: 0.6rem;
+    }
+    
+    .modal-image {
+        height: 140px;
+    }
+    
+    /* Buttons */
+    .home-buttons {
+        gap: 1rem;
+    }
+    
+    .btn-primary,
+    .btn-cv {
+        min-width: 150px;
+        padding: 0.85rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablet Portrait (Desktop mode di HP) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .section {
+        min-height: auto;
+        padding: 4rem 2rem;
+    }
+    
+    .home-content {
+        padding: 2rem 1rem;
+    }
+    
+    .profile-image-wrapper {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .profile-image {
+        object-position: center 25%;
+        transform: scale(1.15);
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .tech-badge {
+        font-size: 0.75rem;
+        padding: 0.45rem 0.85rem;
+    }
+    
+    .modal-images {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Landscape Phones */
+@media (max-width: 896px) and (orientation: landscape) {
+    .section {
+        min-height: auto;
+        padding: 3rem 2rem;
+    }
+    
+    .profile-image-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .main-title {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
 }
