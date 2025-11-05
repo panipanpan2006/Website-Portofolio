@@ -42,6 +42,51 @@ const projectsData = {
             "assets/project3-4.png", "assets/project3-5.png", "assets/project3-6.png"
         ],
         github: "https://github.com/panipanpan2006/manage-buku"
+    },
+    project4: {
+        title: "Eloquent ES6+ JavaScript",
+        overview: "Modern JavaScript project implementing ES6+ features including arrow functions, destructuring, array, object manipulation, spread operator, utility, map, filter and reduce.",
+        description: [
+            "This project is a modern JavaScript-based application (ES6+) that I created to manage student data, displaying names, numerical scores, conversions to letter grades, and student rankings neatly in both the browser and console.",
+            "In this project, I used new features such as variable declarations with let and const, arrow functions, destructuring, spread operators, modern array methods (filter, map, reduce, sort), and template literals so that I not only built basic functions, but also implemented cleaner and more up-to-date coding practices.",
+            "With only simple HTML as the display, I connected JavaScript logic that processed the student object array, calculated the average, determined who passed based on the criteria, and sorted the highest rankings among them.",
+            "This project trains skills in front-end JavaScript and data processing, and experiments with new features in programming languages as a foundation for web application development."
+        ],
+        technologies: ["JavaScript", "ES6+", "Async/Await", "DOM Manipulation", "HTML"],
+        images: [
+            "assets/project4-1.png", "assets/project4-2.png", "assets/project4-3.png", "assets/project4-4.png"
+        ],
+        github: "https://github.com/panipanpan2006/es6-tugas"
+    },
+    project5: {
+        title: "Blade Layout for Campus Portal",
+        overview: "A comprehensive Laravel Blade template system for campus portal featuring modular components, layouts, and responsive design for academic management.",
+        description: [
+            "The Campus-Portal Project is a Laravel-based web platform designed to facilitate the management of student academic information at the Department of Electrical Engineering, Diponegoro University. This system has a modern and responsive interface, featuring various key features such as an academic dashboard, campus news, organizations, library, laboratory, and counseling services.", 
+            "Each feature has a specific function. For example, the academic page displays class schedules, grades, and academic calendars, while the dashboard provides a summary of GPA, total credits, number of active courses, and student attendance rates in the form of interactive graphs and diagrams.",
+            "In the About section, the system displays the profiles of the lecturers teaching the courses, complete with their areas of expertise and academic roles, as well as department contact information. The entire project demonstrates the implementation of the MVC (Model-View-Controller) architecture typical of the Laravel framework, with the use of the Blade Template Engine for dynamic displays.",
+            "The UI components utilize Bootstrap to create a clean and responsive display, while the graphics on the dashboard likely use Chart.js for visualizing GPA data and grade distribution. Overall, Campus-Portal is an example of an academic web application that combines the efficiency of the Laravel backend with the convenience of a modern, interactive frontend display."
+        ],
+        technologies: ["Laravel", "Blade", "Bootstrap", "HTML", "CSS", "JavaScript", "PHP-Framework", "Chart.js"],
+        images: [
+            "assets/project5-1.png", "assets/project5-2.png", "assets/project5-3.png", "assets/project5-4.png"
+        ],
+        github: "https://github.com/panipanpan2006/campus-portal"
+    },
+    project6: {
+        title: "Personal Portfolio Website",
+        overview: "This project is a personal portfolio website built using HTML, CSS, and JavaScript to showcase my identity, skills, and projects as an Information Technology student.",
+        description: [
+            "This project is a personal portfolio website that I created to showcase my identity, skills, experience, and collection of projects as an Electrical Engineering student at Diponegoro University with a focus on information technology.",
+            "This website is built as a single page/multi-page framework using HTML for content structure, CSS for responsive styling and layout, and JavaScript for basic interactivity such as navigation, light animation, or display effects.",
+            "The interface is designed to be clean, professional, and easy to read, featuring sections such as “About Me,” “Skills,” “Projects,” and “Contact.” This project demonstrates that I understand the fundamentals of front-end web development and am capable of presenting myself as an active developer building my own digital portfolio."
+        ],
+        technologies: ["HTML", "Tailwind CSS", "JavaScript"],
+        images: [
+            "assets/project6-1.png", "assets/project6-2.png", "assets/project6-3.png", 
+            "assets/project6-4.png", "assets/project6-5.png", "assets/project6-6.png"
+        ],
+        github: "https://github.com/panipanpan2006/portfolio-website"
     }
 };
 
@@ -187,9 +232,87 @@ function updateActiveNavLink() {
     });
 }
 
+// Toggle Projects - See More Functionality
+let projectsExpanded = false;
+
+function toggleProjects() {
+    const projectCards = document.querySelectorAll('.project-card');
+    const seeMoreBtn = document.getElementById('seeMoreBtn');
+    const btnText = seeMoreBtn.querySelector('span');
+    const btnIcon = seeMoreBtn.querySelector('svg');
+    
+    projectsExpanded = !projectsExpanded;
+    
+    if (projectsExpanded) {
+        // Show all projects (including hidden ones)
+        projectCards.forEach((card, index) => {
+            if (card.classList.contains('project-hidden')) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, (index - 3) * 100);
+            }
+        });
+        btnText.textContent = 'Show Less';
+        seeMoreBtn.classList.add('show-less');
+    } else {
+        // Hide extra projects
+        projectCards.forEach((card, index) => {
+            if (card.classList.contains('project-hidden')) {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+        btnText.textContent = 'See More Projects';
+        seeMoreBtn.classList.remove('show-less');
+        
+        // Scroll to projects section
+        setTimeout(() => {
+            document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 400);
+    }
+}
+
+// Initialize projects - hide extra projects on load
+document.addEventListener('DOMContentLoaded', function() {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, index) => {
+        if (card.classList.contains('project-hidden')) {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+        }
+    });
+});
+
+// Contact Form Submission - Handled by FormSubmit.co
+// Form akan otomatis submit ke email melalui FormSubmit
+// Jika perlu konfirmasi, tampilkan pesan
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('.btn-send-message');
+        const btnOriginal = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Sending...</span>';
+        
+        // Form akan otomatis submit ke FormSubmit.co
+        // Setelah 1 detik, restore button (form sudah ter-submit)
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = btnOriginal;
+        }, 1000);
+    });
+}
+
 // Open Project Modal
 function openProjectModal(projectId) {
-    console.log("Mencari proyek:", projectId);
     const project = projectsData[projectId];
     
     if (!project) {

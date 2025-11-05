@@ -11,7 +11,7 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo-container">
+            <div class="logo-container" onclick="scrollToSection('home')">
                 <img src="assets/Logo.png" alt="Logo" class="logo-image">
                 <div class="logo">Portfolio</div>
             </div>
@@ -22,7 +22,6 @@
             </button>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
@@ -31,34 +30,52 @@
         </div>
     </nav>
 
-    <!-- Home Section -->
+    <!-- Home Section (Merged with About) -->
     <section id="home" class="section">
         <div class="container">
             <div class="home-content">
+                <!-- Profile Image - Left -->
                 <div class="profile-image-wrapper">
                     <img src="assets/profile.png" alt="Ivan Admaja Kuncoro" class="profile-image">
                 </div>
-                <h1 class="main-title">Ivan Admaja Kuncoro</h1>
-                <p class="subtitle">Undergraduate Electrical Engineering Student at Diponegoro University</p>
-                <div class="home-buttons">
-                    <button class="btn-primary" onclick="scrollToSection('about')">See More</button>
-                    <a href="https://drive.google.com/file/d/1Ar3myihJwKp7HR1E7ekkdQXPbhRA4H_D/view?usp=drive_link" target="_blank" class="btn-cv">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        CV ATS
-                    </a>
+                
+                <!-- Text Content - Right -->
+                <div class="home-text-content">
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        Open to opportunities & collaborations
+                    </div>
+                    
+                    <h1 class="main-title">Ivan Admaja Kuncoro</h1>
+                    
+                    <p class="subtitle">Undergraduate Electrical Engineering Student at Diponegoro University</p>
+                    
+                    <p class="about-text">
+                        Active Student 5th-semester Electrical Engineering student specializing in Information Technology. 
+                        Possess some foundational knowledge in computer systems and programming such as Python and C++. 
+                        Open to learning new technologies and committed to developing competencies in system development and technology integration.
+                    </p>
+                    
+                    <div class="home-buttons">
+                        <button class="btn-primary" onclick="scrollToSection('skills')">See More ⇩</button>
+                        <a href="https://drive.google.com/file/d/1Ar3myihJwKp7HR1E7ekkdQXPbhRA4H_D/view?usp=drive_link" target="_blank" class="btn-cv">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            CV ATS ↗
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
+    <!-- About Section - HIDDEN (merged with Home) -->
+    <section id="about" class="section" style="display: none;">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="card">
@@ -108,19 +125,19 @@
                         <div class="progress-item">
                             <div class="progress-label">
                                 <span>C++</span>
-                                <span class="progress-percent">40%</span>
+                                <span class="progress-percent">37%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="--target-width: 40%"></div>
+                                <div class="progress-fill" style="--target-width: 37%"></div>
                             </div>
                         </div>
                         <div class="progress-item">
                             <div class="progress-label">
                                 <span>HTML</span>
-                                <span class="progress-percent">35%</span>
+                                <span class="progress-percent">32%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="--target-width: 35%"></div>
+                                <div class="progress-fill" style="--target-width: 32%"></div>
                             </div>
                         </div>
                         <div class="progress-item">
@@ -135,10 +152,10 @@
                         <div class="progress-item">
                             <div class="progress-label">
                                 <span>JavaScript</span>
-                                <span class="progress-percent">32%</span>
+                                <span class="progress-percent">28%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="--target-width: 32%"></div>
+                                <div class="progress-fill" style="--target-width: 28%"></div>
                             </div>
                         </div>
                     </div>
@@ -169,7 +186,7 @@
     <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
+            <div class="projects-grid" id="projectsGrid">
 
                 <!-- Project 1 -->
                 <div class="project-card">
@@ -269,6 +286,115 @@
                     </div>
                 </div>
 
+                <!-- Project 4 - Hidden until See More -->
+                <div class="project-card project-hidden">
+                    <div class="project-image-wrapper">
+                        <img src="assets/project4-thumb.png" alt="Eloquent ES6+ JavaScript" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Eloquent ES6+ JavaScript</h3>
+                        <p>Modern JavaScript project implementing ES6+ features to display names, scores, grades, and rankings neatly in the console and browser!</p>
+                        <div class="project-tech-badges">
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">ES6+</span>
+                            <span class="tech-badge">Async/Await</span>
+                            <span class="tech-badge">DOM Manipulation</span>
+                            <span class="tech-badge">HTML</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="btn-view" onclick="openProjectModal('project4')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <span>View Details</span>
+                            </button>
+                            <a href="https://github.com/panipanpan2006/es6-tugas" target="_blank" class="btn-github">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 - Hidden until See More -->
+                <div class="project-card project-hidden">
+                    <div class="project-image-wrapper">
+                        <img src="assets/project5-thumb.png" alt="Campus Portal Blade Layout" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Blade Layout for Campus Portal</h3>
+                        <p>This is a modern campus portal project powered by Laravel Blade, Tailwind CSS, and Chart.js. The portal also features a dark mode, interactive dashboard, and reusable components!</p>
+                        <div class="project-tech-badges">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">Blade</span>
+                            <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">HTML</span>
+                            <span class="tech-badge">CSS</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">PHP-Framework</span>
+                            <span class="tech-badge">Chart.js</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="btn-view" onclick="openProjectModal('project5')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <span>View Details</span>
+                            </button>
+                            <a href="https://github.com/panipanpan2006/campus-portal" target="_blank" class="btn-github">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 - Hidden until See More -->
+                <div class="project-card project-hidden">
+                    <div class="project-image-wrapper">
+                        <img src="assets/project6-thumb.png" alt="Portfolio Website" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Personal Portfolio Website</h3>
+                        <p>Modern and responsive personal portfolio website built with vanilla HTML, CSS, and JavaScript featuring smooth animations.</p>
+                        <div class="project-tech-badges">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="btn-view" onclick="openProjectModal('project6')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <span>View Details</span>
+                            </button>
+                            <a href="https://github.com/panipanpan2006/Website-Portofolio" target="_blank" class="btn-github">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- See More Button -->
+            <div class="projects-see-more">
+                <button class="btn-see-more" id="seeMoreBtn" onclick="toggleProjects()">
+                    <span>See More Projects</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -358,7 +484,6 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </section>
@@ -400,6 +525,43 @@
                         <span>Instagram</span>
                     </a>
                 </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h3 class="contact-form-title">Send Me a Message</h3>
+                <form class="contact-form" id="contactForm" action="https://formsubmit.co/ivankuncoro06@gmail.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Contact Form Submission from Portfolio">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="http://127.0.0.1:5500/thank-you.html">
+                    
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-send-message">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                        Send Message
+                    </button>
+                    <div class="form-status" id="formStatus"></div>
+                </form>
             </div>
         </div>
     </section>
