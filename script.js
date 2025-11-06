@@ -79,7 +79,7 @@ const projectsData = {
         description: [
             "This project is a personal portfolio website that I created to showcase my identity, skills, experience, and collection of projects as an Electrical Engineering student at Diponegoro University with a focus on information technology.",
             "This website is built as a single page/multi-page framework using HTML for content structure, CSS for responsive styling and layout, and JavaScript for basic interactivity such as navigation, light animation, or display effects.",
-            "The interface is designed to be clean, professional, and easy to read, featuring sections such as “About Me,” “Skills,” “Projects,” and “Contact.” This project demonstrates that I understand the fundamentals of front-end web development and am capable of presenting myself as an active developer building my own digital portfolio."
+            "The interface is designed to be clean, professional, and easy to read, featuring sections such as “About Me” “Skills” “Projects” and “Contact”. This project demonstrates that I understand the fundamentals of front-end web development and am capable of presenting myself as an active developer building my own digital portfolio."
         ],
         technologies: ["HTML", "Tailwind CSS", "JavaScript"],
         images: [
@@ -159,50 +159,105 @@ const experienceData = {
     }
 };
 
-// Navbar scroll effect
-window.addEventListener('scroll', function() {
-    const navbar = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    updateActiveNavLink();
-});
-
-// Mobile menu toggle
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-
-menuToggle.addEventListener('click', function() {
-    navMenu.classList.toggle('active');
+// ===== MOBILE MENU TOGGLE - SMOOTH VERSION =====
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    let isAnimating = false;
     
-    const spans = menuToggle.querySelectorAll('span');
-    if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
-    } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+    if (!menuToggle || !navMenu) {
+        console.error('❌ Menu elements not found!');
+        return;
     }
+
+    // Force initial state
+    navMenu.classList.remove('active');
+    menuToggle.classList.remove('active');
+    document.body.style.overflow = 'auto';
+
+    // Toggle menu function with animation lock
+    function toggleMenu(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        const isActive = navMenu.classList.contains('active');
+        
+        if (isActive) {
+            // Close menu
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        } else {
+            // Open menu
+            menuToggle.classList.add('active');
+            navMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Reset animation lock after transition
+        setTimeout(() => {
+            isAnimating = false;
+        }, 300);
+    }
+
+    // Close menu function
+    function closeMenu() {
+        if (isAnimating) return;
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Hamburger button click
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // Close when clicking nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            closeMenu();
+        });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+        const isClickInsideMenu = navMenu.contains(e.target);
+        const isClickOnToggle = menuToggle.contains(e.target);
+        
+        if (!isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+
+    // Prevent menu clicks from closing
+    navMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
 });
 
-// Smooth scroll
+// Smooth scroll function
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Close mobile menu
+    const navMenu = document.getElementById('navMenu');
+    const menuToggle = document.getElementById('menuToggle');
+    if (navMenu && navMenu.classList.contains('active')) {
         navMenu.classList.remove('active');
-        const spans = menuToggle.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+        menuToggle.classList.remove('active');
+        document.body.style.overflow = 'auto';
     }
 }
 
-// Nav link click
+// Nav link click handlers
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -211,26 +266,45 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Update active nav
+// UPDATE ACTIVE NAV LINK
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('.section');
     const navLinks = document.querySelectorAll('.nav-link');
-    let current = '';
-    
+    let current = 'home';
+
+    let closestSection = null;
+    let closestDistance = Infinity;
+
     sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (window.scrollY >= sectionTop - 200) {
-            current = section.getAttribute('id');
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+        const sectionCenter = sectionTop + sectionHeight / 2;
+        const viewportCenter = window.innerHeight / 2;
+        const distance = Math.abs(sectionCenter - viewportCenter);
+
+        if (sectionTop < window.innerHeight * 0.7 && sectionTop + sectionHeight > 0) {
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestSection = section;
+            }
         }
     });
-    
+
+    if (closestSection) {
+        current = closestSection.getAttribute('id');
+    }
+
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
+        if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
         }
     });
 }
+
+window.addEventListener('scroll', updateActiveNavLink);
+window.addEventListener('load', updateActiveNavLink);
 
 // Toggle Projects - See More Functionality
 let projectsExpanded = false;
@@ -239,12 +313,10 @@ function toggleProjects() {
     const projectCards = document.querySelectorAll('.project-card');
     const seeMoreBtn = document.getElementById('seeMoreBtn');
     const btnText = seeMoreBtn.querySelector('span');
-    const btnIcon = seeMoreBtn.querySelector('svg');
     
     projectsExpanded = !projectsExpanded;
     
     if (projectsExpanded) {
-        // Show all projects (including hidden ones)
         projectCards.forEach((card, index) => {
             if (card.classList.contains('project-hidden')) {
                 card.style.display = 'block';
@@ -257,8 +329,7 @@ function toggleProjects() {
         btnText.textContent = 'Show Less';
         seeMoreBtn.classList.add('show-less');
     } else {
-        // Hide extra projects
-        projectCards.forEach((card, index) => {
+        projectCards.forEach(card => {
             if (card.classList.contains('project-hidden')) {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
@@ -270,17 +341,16 @@ function toggleProjects() {
         btnText.textContent = 'See More Projects';
         seeMoreBtn.classList.remove('show-less');
         
-        // Scroll to projects section
         setTimeout(() => {
             document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 400);
     }
 }
 
-// Initialize projects - hide extra projects on load
+// Initialize projects
 document.addEventListener('DOMContentLoaded', function() {
     const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, index) => {
+    projectCards.forEach(card => {
         if (card.classList.contains('project-hidden')) {
             card.style.display = 'none';
             card.style.opacity = '0';
@@ -289,21 +359,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Contact Form Submission - Handled by FormSubmit.co
-// Form akan otomatis submit ke email melalui FormSubmit
-// Jika perlu konfirmasi, tampilkan pesan
+// Contact Form
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         const submitBtn = this.querySelector('.btn-send-message');
         const btnOriginal = submitBtn.innerHTML;
         
-        // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Sending...</span>';
         
-        // Form akan otomatis submit ke FormSubmit.co
-        // Setelah 1 detik, restore button (form sudah ter-submit)
         setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = btnOriginal;
@@ -316,7 +381,7 @@ function openProjectModal(projectId) {
     const project = projectsData[projectId];
     
     if (!project) {
-        console.error("ERROR: Proyek tidak ditemukan!", projectId);
+        console.error("ERROR: Project not found!", projectId);
         return;
     }
     
@@ -340,7 +405,7 @@ function openProjectModal(projectId) {
                 </div>
 
                 <div class="modal-gallery">
-                    <h3>Galeri</h3>
+                    <h3>Gallery</h3>
                     <div class="modal-images">
                         ${project.images.map(img => `
                             <img src="${img}" alt="${project.title}" class="modal-image" onclick="openLightbox('${img}')">
@@ -358,11 +423,11 @@ function openProjectModal(projectId) {
                 </div>
 
                 <div class="modal-description">
-                    <h3>Deskripsi Lengkap</h3>
+                    <h3>Full Description</h3>
                     ${Array.isArray(project.description) 
                         ? project.description.map(p => `<p class="description-paragraph">${p}</p>`).join('')
                         : `<p class="description-paragraph">${project.description}</p>`
-                }
+                    }
                 </div>
             </div>
         </div>
@@ -397,7 +462,7 @@ function openExperienceModal(experienceId) {
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        <span><strong>Role :</strong> ${exp.role}</span>
+                        <span><strong>Role:</strong> ${exp.role}</span>
                     </div>
                     <div class="modal-info-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -406,14 +471,14 @@ function openExperienceModal(experienceId) {
                             <line x1="8" y1="2" x2="8" y2="6"></line>
                             <line x1="3" y1="10" x2="21" y2="10"></line>
                         </svg>
-                        <span><strong>Time :</strong> ${exp.date}</span>
+                        <span><strong>Time:</strong> ${exp.date}</span>
                     </div>
                     <div class="modal-info-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
-                        <span><strong>Location :</strong> ${exp.location}</span>
+                        <span><strong>Location:</strong> ${exp.location}</span>
                     </div>
                 </div>
                 <div class="modal-description">
@@ -481,7 +546,7 @@ const progressObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.3 });
 
-// DOM Loaded
+// DOM Loaded - Initialize everything
 document.addEventListener('DOMContentLoaded', function() {
     const elementsToAnimate = document.querySelectorAll('.card, .skill-card, .project-card, .experience-card, .contact-card');
     
@@ -518,4 +583,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('%c👋 Welcome to Ivan\'s Portfolio!', 'color: #06b6d4; font-size: 20px; font-weight: bold;');
     console.log('%c💻 Built with HTML, CSS, and JavaScript', 'color: #3b82f6; font-size: 14px;');
+    console.log('%c✅ Mobile menu initialized successfully!', 'color: #22c55e; font-size: 14px;');
 });

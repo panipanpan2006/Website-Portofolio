@@ -24,6 +24,7 @@ portfolio/
 ├── index.html          # Main HTML file
 ├── style.css           # Styling dan responsive design
 ├── script.js           # JavaScript untuk interaktivitas
+├── thank-you.html      # Page yang muncul setelah send form message
 └── assets/             # Folder untuk gambar dan resources
 ```
 
@@ -34,7 +35,7 @@ portfolio/
    git clone https://github.com/panipanpan2006/portfolio-website.git
 ```
 2. Buka file `index.html` di browser
-3. Atau gunakan Live Server di VSCode untuk development
+3. Atau gunakan Live Server/Five Server di VSCode untuk development
 
 ## 🎨 Kustomisasi
 
